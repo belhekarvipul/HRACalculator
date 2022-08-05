@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>HRA Calculator</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="bootstrap.min.css" rel="stylesheet">
+		<script src="bootstrap.bundle.min.js"></script>
+		<script src="jquery.min.js"></script>
+		<script>
+			$(document).ready(function(){			
+				$("#submit").click(function(){
+					if(document.getElementById('frmHRACalculator').checkValidity()){
+						var YearlyBasic = ($('#basicSalary').val() * 12);
+						var YearlyHra = ($('#hra').val() * 12);
+						var YearlyRent = ($('#rent').val() * 12);
+						
+						var fourtyPercentOfBasic = ((YearlyBasic * 40)/100);
+						var tenPercentOfBasicMinusRent = (YearlyRent - ((YearlyBasic * 10)/100));
+						
+						var totalExemption = YearlyHra;
+						
+						if(totalExemption > fourtyPercentOfBasic)
+							totalExemption = fourtyPercentOfBasic;
+							
+						if(totalExemption > tenPercentOfBasicMinusRent)
+							totalExemption = tenPercentOfBasicMinusRent;
+							
+						alert(Math.floor(totalExemption));	
+					}					
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div class="container mt-3">
+			<center>
+				<h3><b>HRA Calculator</b></h3>
+			</center>
+			<form id="frmHRACalculator" class="was-validated">
+				<div class="mb-3 mt-3">
+					<label for="basicSalary" class="form-label"><b>Basic Salary:</b></label>
+					<input type="number" class="form-control" id="basicSalary" placeholder="Enter Monthly Basic Salary" name="basicSalary" required>
+					<div class="invalid-feedback">Please provide a valid monthly basic salary. Numbers only!</div>
+				</div>
+				<div class="mb-3 mt-3">
+					<label for="hra" class="form-label"><b>HRA:</b></label>
+					<input type="number" class="form-control" id="hra" placeholder="Enter Monthly HRA" name="hra" required>
+					<div class="invalid-feedback">Please provide a valid monthly HRA. Numbers only!</div>
+				</div>
+				<div class="mb-3 mt-3">
+					<label for="rent" class="form-label"><b>Rent:</b></label>
+					<input type="number" class="form-control" id="rent" placeholder="Enter Monthly Rent" name="rent" required>
+					<div class="invalid-feedback">Please provide a valid monthly rent. Numbers only!</div>
+				</div>
+				<input type="button" id="submit" class="btn btn-primary" value="Submit"></input>
+			</form>
+		</div>
+	</body>
+</html>
+
